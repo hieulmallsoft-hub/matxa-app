@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -23,7 +24,15 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
@@ -33,8 +42,11 @@ fun OnboardingScreen(
     onOnboardingFinished: () -> Unit
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .navigationBarsPadding(),
         contentAlignment = Alignment.Center,
+
     ) {
 
         Image(
@@ -91,7 +103,7 @@ fun OnboardingScreen(
                 .padding(
                     start = 20.dp,
                     end = 20.dp,
-                    bottom = 150.dp
+                    bottom = 10.dp
                 )
         ) {
 
@@ -131,6 +143,72 @@ fun OnboardingScreen(
                     color = Color.Black
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            val policyText = buildAnnotatedString {
+
+                withStyle(
+                    SpanStyle(
+                        color = Color.LightGray
+                    )
+                ) {
+                    append("By continue, you agree to our ")
+                }
+
+                withLink(
+                    LinkAnnotation.Clickable(
+                        tag = "privacy",
+                        styles = TextLinkStyles(
+                            style = SpanStyle(
+                                color = Color.White,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        ),
+                        linkInteractionListener = {
+                            // Bấm Privacy Policy
+                            println("Privacy Policy")
+                        }
+                    )
+                ) {
+                    append("Privacy Policy")
+                }
+
+                withStyle(
+                    SpanStyle(
+                        color = Color.LightGray
+                    )
+                ) {
+                    append(" &\n ")
+                }
+
+                withLink(
+                    LinkAnnotation.Clickable(
+                        tag = "terms",
+                        styles = TextLinkStyles(
+                            style = SpanStyle(
+                                color = Color.White,
+                                textDecoration = TextDecoration.Underline
+                            )
+                        ),
+                        linkInteractionListener = {
+                            // Bấm Terms of Use
+                            println("Terms of Use")
+                        }
+                    )
+                ) {
+                    append("Terms of Use")
+                }
+            }
+
+            Text(
+                text = policyText,
+                fontSize = 14.sp,
+                lineHeight = 22.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
 
         }
     }
