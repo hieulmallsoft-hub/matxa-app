@@ -5,11 +5,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.screen.AccountScreen
 import com.example.myapplication.ui.screen.LocationPermissionScreen
 import com.example.myapplication.ui.screen.HomeScreen
 import com.example.myapplication.ui.screen.OnboardingScreen
 import com.example.myapplication.ui.screen.SelectCountryScreen
 import com.example.myapplication.ui.screen.SplashScreen
+import com.example.myapplication.ui.screen.LoginScreen
 
 @Composable
 fun AppNavigation() {
@@ -70,7 +72,42 @@ fun AppNavigation() {
         }
 
         composable("main") {
-            HomeScreen()
+            HomeScreen(
+                onAccountClick = { navController.navigate("account") }
+            )
+
+
+        }
+
+        composable("account") {
+            AccountScreen(
+                onHomeClick = { navController.popBackStack() },
+                onLoginClick = { navController.navigate("login") }
+            )
+        }
+
+        composable("login") {
+            LoginScreen(
+                onCloseClick = {
+                    navController.popBackStack()
+                },
+
+                onCreateAccountClick = {
+                    navController.navigate("register")
+                },
+
+                onGoogleClick = {
+                    println("Google login")
+                },
+
+                onAppleClick = {
+                    println("Apple login")
+                },
+
+                onLoginClick = {
+                    navController.navigate("loginForm")
+                }
+            )
         }
     }
 }
