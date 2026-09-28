@@ -12,8 +12,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -229,7 +231,65 @@ fun AccountMenuItem(
 }
 
 @Composable
-fun AccountBottomNavigation(
+fun AccountBottomNavigation(onHomeClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .padding(horizontal = 20.dp, vertical = 8.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(62.dp)
+                .clip(RoundedCornerShape(32.dp))
+                .background(Color(0xFFFFFCF7))
+                .padding(horizontal = 6.dp, vertical = 5.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AccountNavigationItem(false, Icons.Outlined.Home, "Khám phá", Modifier.weight(1f), onHomeClick)
+            AccountNavigationItem(false, Icons.Outlined.ReceiptLong, "Hoạt động", Modifier.weight(1f)) {}
+            AccountNavigationItem(false, Icons.Outlined.LocalOffer, "Ưu đãi", Modifier.weight(1f)) {}
+            AccountNavigationItem(true, Icons.Outlined.Person, "Tài khoản", Modifier.weight(1f)) {}
+        }
+    }
+}
+
+@Composable
+private fun AccountNavigationItem(
+    selected: Boolean,
+    icon: ImageVector,
+    label: String,
+    modifier: Modifier,
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = modifier
+            .height(52.dp)
+            .clip(RoundedCornerShape(28.dp))
+            .background(if (selected) Color(0xFFF3F0E8) else Color.Transparent)
+            .clickable(onClick = onClick),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            modifier = Modifier.size(22.dp),
+            tint = Color(0xFF292929)
+        )
+        Spacer(Modifier.height(2.dp))
+        Text(
+            text = label,
+            fontSize = 10.sp,
+            fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
+            color = Color(0xFF292929)
+        )
+    }
+}
+
+@Composable
+fun LegacyAccountBottomNavigation(
     onHomeClick: () -> Unit
 ) {
     NavigationBar(
