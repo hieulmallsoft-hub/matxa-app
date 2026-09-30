@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.screen
+package com.example.myapplication.ui.screen.auth
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

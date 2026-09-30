@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.screen
+package com.example.myapplication.ui.screen.home
 
 import android.Manifest
 import android.content.Context

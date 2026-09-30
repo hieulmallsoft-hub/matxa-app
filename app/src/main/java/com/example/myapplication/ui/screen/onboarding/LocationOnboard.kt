@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.screen
+package com.example.myapplication.ui.screen.onboarding
 
 import android.Manifest
 import android.content.pm.PackageManager
